@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meribel Restaurant Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --cream: #faf8f4;
+    --warm: #c9a96e;
+    --warm-light: #e8d5b0;
+    --slate: #4a5568;
+    --light-border: #e2ddd5;
+    --snow: #f0ece4;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+  .hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 40%, #0f3460 100%);
+    color: white;
+    padding: 60px 40px 50px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L60 30L30 60L0 30Z' fill='none' stroke='rgba(255,255,255,0.03)' stroke-width='1'/%3E%3C/svg%3E");
+    opacity: 0.5;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    position: relative;
+    margin-bottom: 6px;
+  }
+  .hero .subtitle {
+    font-size: 1rem;
+    opacity: 0.7;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 300;
+    position: relative;
+  }
+  .hero .tagline {
+    margin-top: 16px;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1rem;
+    opacity: 0.6;
+    position: relative;
+  }
+  .nav-bar {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 20px;
+    position: relative;
+  }
+  .nav-bar a {
+    color: white;
+    text-decoration: none;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    transition: all 0.2s;
+    border: 1px solid rgba(255,255,255,0.3);
+  }
+  .nav-bar a:hover { background: rgba(255,255,255,0.15); }
+  .nav-bar a.active { background: var(--warm); border-color: var(--warm); }
+  .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+  .intro {
+    padding: 40px 0 28px;
+    font-size: 1.02rem;
+    color: var(--slate);
+    border-bottom: 1px solid var(--light-border);
+    margin-bottom: 36px;
+  }
+  .section-header {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin: 44px 0 8px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--warm);
+    display: inline-block;
+  }
+  .section-desc {
+    color: var(--slate);
+    margin-bottom: 28px;
+    font-size: 0.93rem;
+  }
+  .restaurant-card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    border: 1px solid var(--light-border);
+    transition: box-shadow 0.3s ease;
+  }
+  .restaurant-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 4px;
+  }
+  .card-top h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+  }
+  .badge-row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .badge.michelin { background: #b91c1c; color: white; }
+  .badge.top-pick { background: var(--warm); color: white; }
+  .badge.value { background: #166534; color: white; }
+  .badge.experience { background: #4338ca; color: white; }
+  .meta-row {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: 4px 0 10px;
+    font-size: 0.86rem;
+    color: var(--slate);
+  }
+  .meta-row .location { font-style: italic; }
+  .price-tag { font-weight: 600; color: var(--warm); letter-spacing: 0.05em; }
+  .rating { display: inline-flex; align-items: center; gap: 4px; font-weight: 600; color: var(--ink); }
+  .rating .stars { color: var(--warm); }
+  .phone { font-size: 0.85rem; color: var(--slate); }
+  .card-links {
+    display: flex;
+    gap: 12px;
+    margin-top: 8px;
+    font-size: 0.82rem;
+    align-items: center;
+  }
+  .card-links a {
+    color: var(--warm);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s;
+  }
+  .card-links a:hover { color: var(--ink); text-decoration: underline; }
+  .description { color: var(--slate); font-size: 0.93rem; margin: 8px 0; }
+  .review-snippet {
+    background: var(--snow);
+    border-left: 3px solid var(--warm-light);
+    padding: 10px 16px;
+    margin: 10px 0 4px;
+    font-style: italic;
+    font-size: 0.86rem;
+    color: #555;
+    border-radius: 0 6px 6px 0;
+  }
+  .review-source { font-style: normal; font-weight: 600; font-size: 0.78rem; color: #888; }
+  .tip-box {
+    background: linear-gradient(135deg, #fef9ee, #fdf4e3);
+    border: 1px solid var(--warm-light);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin: 36px 0;
+    font-size: 0.9rem;
+    color: var(--slate);
+    line-height: 1.7;
+  }
+  .tip-box strong { color: var(--warm); font-family: 'Playfair Display', serif; font-size: 0.95rem; }
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 16px 0;
+    border-top: 1px solid var(--light-border);
+    border-bottom: 1px solid var(--light-border);
+    margin-bottom: 36px;
+    font-size: 0.83rem;
+    color: var(--slate);
+  }
+  .legend-item { display: flex; align-items: center; gap: 6px; }
+  .legend-swatch { width: 14px; height: 14px; border-radius: 50%; }
+  footer {
+    text-align: center;
+    padding: 36px 20px;
+    color: #aaa;
+    font-size: 0.78rem;
+    border-top: 1px solid var(--light-border);
+    margin-top: 44px;
+  }
+  @media (max-width: 600px) {
+    .restaurant-card { padding: 18px; }
+    .hero { padding: 40px 20px 36px; }
+    .nav-bar a { padding: 6px 14px; font-size: 0.8rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="subtitle">Meribel &amp; Les 3 Vallees  &#x2022;  22-31 March 2026</div>
+  <h1>Restaurant Guide</h1>
+  <div class="tagline">Cross-checked with Google, TripAdvisor &amp; Yelp</div>
+  <div class="nav-bar">
+    <a href="index.html" class="active">Restaurant Guide</a>
+    <a href="itinerary.html">Itinerary</a>
+    <a href="chalet.html">Chalet</a>
+  </div>
+</div>
+  <h1>The Foodie's Restaurant Guide</h1>
+  <div class="tagline">Cross-checked with Google, TripAdvisor &amp; Yelp — curated for hungry skiers</div>
+</div>
+
+<div class="container">
+
+<div class="intro">
+  Your group loves great food, values authenticity, and wants a couple of splurge-worthy meals alongside real, honest mountain cooking. Below is every restaurant from the Chalet Sitter book, verified against real reviews and ranked for a group of food-lovers who want to eat well. Restaurants are grouped by use case and ordered by recommendation within each section. Not everyone will join every meal — budget estimates are per person for those who go.
+</div>
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-swatch" style="background:#b91c1c;"></div> Michelin starred</div>
+  <div class="legend-item"><div class="legend-swatch" style="background:#c9a96e;"></div> Top pick</div>
+  <div class="legend-item"><div class="legend-swatch" style="background:#166534;"></div> Great value</div>
+  <div class="legend-item"><div class="legend-swatch" style="background:#4338ca;"></div> Unique experience</div>
+  <div class="legend-item"><strong>$</strong> = under €30pp &nbsp; <strong>$$</strong> = €30–60pp &nbsp; <strong>$$$</strong> = €60–120pp &nbsp; <strong>$$$$</strong> = €120+pp</div>
+</div>
+
+<!-- ============================================ -->
+<h2 class="section-header">The Fancy Nights Out</h2>
+<p class="section-desc">For when you want to dress up (as much as ski boots allow) and treat yourselves.</p>
+
+<!-- La Bouitte -->
+<div class="restaurant-card">
+  <div class="card-top">
+    <h3>La Bouitte</h3>
+    <div class="badge-row">
+      <span class="badge michelin">3 Michelin Stars</span>
+      <span class="badge top-pick">Must-Do</span>
+    </div>
+  </div>
+  <div class="meta-row">
+    <span class="location">Saint-Martin-de-Belleville (slopes access)</span>
+    <span class="price-tag">$$$$</span>
+    <span class="rating"><span class="stars">★★★★★</span> 4.6 TripAdvisor (599 reviews) · 4.8 Google</span>
+  </div>
+  <div class="phone">+33 4 79 08 96 77</div>
+  <div class="card-links"><a href="https://www.labouitte.com" target="_blank">Website</a> <span style="color:var(--light-border);">|</span> <a href="https://www.google.com/maps/search/La+Bouitte+Saint+Martin+de+Belleville" target="_blank">Google Maps</a></div>
+  <div class="description">
+    The undisputed crown jewel of the 3 Vallées. Father-son duo René and Maxime Meilleur run a family restaurant that happens to hold 3 Michelin stars. Local Savoyard ingredients elevated to extraordinary heights — Arctic char from Lake Geneva, ancient vegetables, unpasteurised cheeses. The 3-course lunch menu starts around €210pp; the full tasting runs to €440pp. For 7 people, expect around €3,500–5,000+ with wine. They provide a shuttle from the slopes.
+  </div>
+  <div class="review-snippet">
+    "The best 3-star Michelin I have ever been to: it is casual, not over-expensive, and you can almost ski to it." <span class="review-source">— TripAdvisor</span>
+  </div>
+  <div class="review-snippet">
+    "We experienced genuine culinary mastery at work. The breads were freshly baked, tasty with wonderful variety." <span class="review-source">— TripAdvisor</span>
+  </div>
+</div>
+
+<!-- L'Ekrin -->
+<div class="restaurant-card">
+  <div class="card-top">
+    <h3>L'Ekrin by Laurent Azoulay</h3>
+    <div class="badge-row">
+      <span class="badge michelin">1 Michelin Star</span>
+      <span class="badge top-pick">Top Pick</span>
+    </div>
+  </div>
+  <div class="meta-row">
+    <span class="location">Méribel Centre (Hôtel Le Kaïla)</span>
+    <span class="price-tag">$$$$</span>
+    <span class="rating"><span class="stars">★★★★½</span> 4.6 TripAdvisor (125 reviews) · 4.2 Google</span>
+  </div>
+  <div class="phone">+33 4 79 41 69 35</div>
+  <div class="card-links"><a href="https://www.lekaila.com/en/ekrin-restaurant-meribel.html" target="_blank">Website</a> <span style="color:var(--light-border);">|</span> <a href="https://www.google.com/maps/search/Restaurant+L+Ekrin+Meribel+Le+Kaila" target="_blank">Google Maps</a></div>
+  <div class="description">
+    The only Michelin-starred restaurant in Méribel. Chef Laurent Azoulay blends Provence and Savoie influences in a cosy, luxurious chalet setting with bespoke ceramics. The tasting menu runs from €95 for 3 courses up to the full experience with wine pairings. A vegetarian tasting menu is also offered. For 7 people, budget around €1,500–3,000+ depending on wine choices. Easier to get a reservation than La Bouitte.
+  </div>
+  <div class="review-snippet">
+    "There was a moment of blissful silence with the first bite of each dish. Well deserved Michelin star, better than many one-stars I've been to." <span class="review-source">— TripAdvisor</span>
+  </div>
+</div>
+
+<!-- La Coursive des Alpes -->
+<div class="restaurant-card">
+  <div class="card-top">
+    <h3>La Coursive des Alpes</h3>
+    <div class="badge-row">
+      <span class="badge top-pick">Top Pick</span>
+    </div>
+  </div>
+  <div class="meta-row">
+    <span class="location">Méribel Centre</span>
+    <span class="price-tag">$$$</span>
+    <span class="rating"><span class="stars">★★★★½</span> Highly regarded locally</span>
+  </div>
+  <div class="phone">+33 4 79 06 44 97</div>
+  <div class="card-links"><a href="https://www.meribel.net/en/apidae/la-coursive-des-alpes/" target="_blank">Website</a> <span style="color:var(--light-border);">|</span> <a href="https://www.google.com/maps/search/La+Coursive+des+Alpes+Meribel" target="_blank">Google Maps</a></div>
+  <div class="description">
+    Chef Laurent Hillairet trained in Parisian palaces and brings creative, seasonal cuisine to a modern and chic setting. A strong alternative to L'Ekrin for an elevated dinner without the Michelin premium. Quality seasonal ingredients prepared with Parisian-palace precision in a more relaxed setting.
+  </div>
+</div>
+
+<!-- ============================================ -->
+<h2 class="section-header">Authentic & Unmissable Dinners</h2>
+<p class="section-desc">The restaurants where the food genuinely shines, the setting is memorable, and the experience feels real.</p>
+
+<!-- Chez Pépé Nicolas -->
+<div class="restaurant-card">
+  <div class="card-top">
+    <h3>Chez Pépé Nicolas</h3>
+    <div class="badge-row">
+      <span class="badge top-pick">Must-Do</span>
+      <span class="badge experience">Unique Experience</span>
+      <span class="badge value">Great Value</span>
+    </div>
+  </div>
+  <div class="meta-row">
+    <span class="location">Between Les Ménuires &amp; Val Thorens (Piste de la Chasse)</span>
+    <span class="price-tag">$$</span>
+    <span class="rating"><span class="stars">★★★★★</span> 4.6 TripAdvisor (1,252 reviews) · 4.8 Google · 4.9 Trip.com</span>
+  </div>
+  <div class="phone">+33 6 09 45 28 35</div>
+  <div class="card-links"><a href="https://gb.chezpepenicolas.com/" target="_blank">Website</a> <span style="color:var(--light-border);">|</span> <a href="https://www.google.com/maps/search/Chez+Pepe+Nicolas+Val+Thorens" target="_blank">Google Maps</a></div>
+  <div class="description">
+    This is the one. A family-run farmhouse restaurant on a mountainside where the Suchet family has been farming for generations. They raise their own animals, grow produce in a high-altitude permaculture garden, and make their own cheeses. The setting is spectacular — animals roaming outside, stunning views, rustic-chic decor. Savoyard classics done perfectly. Around €50–70pp with wine. Free shuttle from the slopes. For 7 people this is an absolute no-brainer.
+  </div>
+  <div class="review-snippet">
+    "This is by far and away the best restaurant in the 3 Valleys. Phenomenal local cuisine, friendly staff, stunning view." <span class="review-source">— Google</span>
+  </div>
+  <div class="review-snippet">
+    "The farm with goats being milked was a special experience. The food and service were perfect." <span class="review-source">— Trip.com</span>
+  </div>
+</div>
+
+<!-- La Fromagerie -->
+<div class="restaurant-card">
+  <div class="card-top">
+    <h3>La Fromagerie</h3>
+    <div class="badge-row">
+      <span class="badge value">Great Value</span>
+      <span class="badge top-pick">Top Pick</span>
+    </div>
+  </div>
+  <div class="meta-row">
+    <span class="location">Méribel Centre</span>
+    <span class="price-tag">$$</span>
+    <span class="rating"><span class="stars">★★★★</span> 4.1 TripAdvisor (196 reviews) · 4.6 Google</span>
+  </div>
+  <div class="phone">+33 4 79 08 55 48</div>
+  <div class="card-links"><a href="https://www.meribel.net/en/apidae/la-fromagerie/" target="_blank">Website</a> <span style="color:var(--light-border);">|</span> <a href="https://www.google.com/maps/search/La+Fromagerie+Meribel" target="_blank">Google Maps</a></div>
+  <div class="description">
+    Enter through a cheese shop, descend into a vaulted basement, and prepare for the best fondue and raclette in Méribel. This is the place for a loud, fun, cheesy (literally) group night. You'll walk out smelling of cheese and you won't care. Book ahead especially on Wednesdays when chalet staff are off. For 7 people sharing fondues, raclettes, charcuterie and wine, expect around €40–50pp.
+  </div>
+  <div class="review-snippet">
+    "Possibly the best fondue in France. The aroma of cheese hits you as soon as you open the door!" <span class="review-source">— TripAdvisor</span>
+  </div>
+</div>
+
+<!-- Le Grand Coeur -->
+<div class="restaurant-card">
+  <div class="card-top">
+    <h3>Restaurant du Grand Coeur</h3>
+  </div>
+  <div class="meta-row">
+    <span class="location">Méribel Centre</span>
+    <span class="price-tag">$$$</span>
+    <span class="rating"><span class="stars">★★★★</span> Well-regarded locally</span>
+  </div>
+  <div class="phone">+33 4 79 08 60 03</div>
+  <div class="card-links"><a href="https://www.legrandcoeur.com/en/restaurant/" target="_blank">Website</a> <span style="color:var(--light-border);">|</span> <a href="https://www.google.com/maps/search/Restaurant+Grand+Coeur+Meribel" target="_blank">Google Maps</a></div>
+  <div class="description">
+    Refined gourmet cuisine in a beautiful traditional Savoyard setting. Excellent wine list and good cocktails at the bar. A reliable choice for an elevated dinner without the Michelin-star formality — think upscale comfort food with a gorgeous setting.
+  </div>
+</div>
+
+<!-- La Vache Rouge -->
+<div class="restaurant-card">
+  <div class="card-top">
+    <h3>La Vache Rouge</h3>
+    <div class="badge-row">
+      <span class="badge top-pick">Top Pick</span>
+    </div>
+  </div>
+  <div class="meta-row">
+    <span class="location">Méribel Centre (formerly Le Cèpe)</span>
+    <span class="price-tag">$$$</span>
+    <span class="rating"><span class="stars">★★★★</span> Strong reputation (reviews from Le Cèpe era)</span>
+  </div>
+  <div class="description">
+    Freshly rebranded for the 2025/26 season (previously the well-loved Le Cèpe), La Vache Rouge offers exceptional meats and seafood in a chic, contemporary Alpine setting. The previous incarnation was praised for its porcini mushroom cappuccino soup, foie gras, and quality wine list. Now focused on prime character meats and premium seafood. Open daily. A great way to kick off the week — upscale enough to feel like an arrival celebration, without the Michelin formality. Expect around €80–100pp with wine.
+  </div>
+  <div class="review-snippet">
+    "The porcini cappuccino is a must-try. Amazing wine list. From foie gras through to the desserts, this was a terrific meal." <span class="review-source">— Wanderlog (Le Cèpe era)</span>
+  </div>
+</div>
+
+<div class="tip-box">
+  <strong>Group Booking Tip</strong><br>
+  For 7 people, book at least a few days ahead at all restaurants below. For La Bouitte, book 4–6 weeks minimum. For Chez Pépé Nicolas, use their free shuttle from the slopes or arrange the evening shuttle for dinner.
+</div>
+
+<!-- ============================================ -->
+<h2 class="section-header">Unique & Unusual Experiences</h2>
+<p class="section-desc">For the nights you want something you'll genuinely never forget.</p>
+
+<!-- Refuge de la Traye -->
+<div class="restaurant-card">
+  <div class="card-top">
+    <h3>Refuge de la Traye</h3>
+    <div class="badge-row">
+      <span class="badge experience">Unique Experience</span>
+    </div>
+  </div>
+  <div class="meta-row">
+    <span class="location">Above Méribel (1h30 walk / snowshoe / shuttle)</span>
+    <span class="price-tag">$$$</span>
+    <span class="rating"><span class="stars">★★★★½</span> Highly rated luxury refuge</span>
+  </div>
+  <div class="phone">+33 4 58 24 04 04</div>
+  <div class="card-links"><a href="https://refugedelatraye.fr/en/" target="_blank">Website</a> <span style="color:var(--light-border);">|</span> <a href="https://www.google.com/maps/search/La+Vache+Rouge+Meribel" target="_blank">Google Maps</a> <span style="color:var(--light-border);">|</span> <a href="https://www.google.com/maps/search/Refuge+de+la+Traye+Meribel" target="_blank">Google Maps</a></div>
+  <div class="card-links"><a href="https://www.meribel.net/en/apidae/la-vache-rouge/" target="_blank">Website</a></div>
+  <div class="description">
+    A 5-star luxury mountain refuge accessible by a snowshoe walk or shuttle through the forest. Italian and Savoyard cuisine in an intimate setting (15 covers indoors, 40 on the terrace). The journey is part of the experience — torchlit approach in winter, breathtaking mountain scenery. Reservations essential. Lunch only (Mon–Sat noon–3pm). This is a proper adventure dining experience.
+  </div>
+  <div class="review-snippet">
+    "A small mountain hamlet in a stunning location. Seven chalets, all traditionally styled yet chic. A perfect mountain hideaway." <span class="review-source">— Hotel Guru</span>
+  </div>
+</div>
+
+<!-- Le Close-Up -->
+<div class="restaurant-card">
+  <div class="card-top">
+    <h3>Le Close-Up</h3>
+    <div class="badge-row">
+      <span class="badge experience">Unique Experience</span>
+    </div>
+  </div>
+  <div class="meta-row">
+    <span class="location">Méribel</span>
+    <span class="price-tag">$$</span>
+  </div>
+  <div class="phone">+33 4 79 00 74 69</div>
+  <div class="card-links"><a href="https://www.meribel.net/en/apidae/le-close-up/" target="_blank">Website</a> <span style="color:var(--light-border);">|</span> <a href="https://www.google.com/maps/search/Le+Close+Up+Meribel" target="_blank">Google Maps</a></div>
+  <div class="description">
+    Magic and Savoyard cuisine combined — a dinner with puzzles, brain teasers, and magic tricks woven into the meal. Perfect for a fun group night when you want entertainment alongside solid mountain food. Great for lifting energy mid-week.
+  </div>
+</div>
+
+<!-- Refuge du Christ -->
+<div class="restaurant-card">
+  <div class="card-top">
+    <h3>Refuge du Christ</h3>
+    <div class="badge-row">
+      <span class="badge experience">Unique Experience</span>
+      <span class="badge value">Great Value</span>
+    </div>
+  </div>
+  <div class="meta-row">
+    <span class="location">Above Méribel (1h30 walk)</span>
+    <span class="price-tag">$$</span>
+  </div>
+  <div class="phone">+33 6 95 73 20 90</div>
+  <div class="card-links"><a href="https://www.meribel.net/en/apidae/refuge-du-christ/" target="_blank">Website</a> <span style="color:var(--light-border);">|</span> <a href="https://www.google.com/maps/search/Refuge+du+Christ+Meribel" target="_blank">Google Maps</a></div>
+  <div class="description">
+    Hike 1.5 hours to reach a mountain paradise with a Norwegian bath and sauna. Soak in the hot bath under the stars, then sit down for an honest Savoyard meal. This is the authentic, rugged mountain experience — perfect for the adventurous night.
+  </div>
+</div>
+
+<div class="restaurant-card">
+  <div class="card-top">
+    <h3>Refuge du Plan</h3>
+    <div class="badge-row">
+      <span class="badge experience">Unique Experience</span>
+      <span class="badge value">Great Value</span>
+    </div>
+  </div>
+  <div class="meta-row">
+    <span class="location">Above Lac de Tueda, Plan de Tueda nature reserve</span>
+    <span class="price-tag">$$</span>
+  </div>
+  <div class="phone">+33 6 89 23 85 68</div>
+  <div class="card-links"><a href="https://www.meribel.net/en/apidae/refuge-du-plan-de-tueda/" target="_blank">Website</a> <span style="color:var(--light-border);">|</span> <a href="https://www.google.com/maps/search/Refuge+du+Plan+Tueda+Meribel" target="_blank">Google Maps</a></div>
+  <div class="description">
+    Located above the lake in the Plan de Tueda nature reserve, this is a proper mountain refuge with traditional cuisine and guaranteed authentic atmosphere. A memorable evening in a real mountain setting — no frills, just the mountains and good food.
+  </div>
+</div>
+
+<!-- ============================================ -->
+<h2 class="section-header">Best Lunches on the Slopes</h2>
+<p class="section-desc">Ski in, eat brilliantly, ski out. Ranked by food quality.</p>
+
+<!-- Adray Telebar -->
+<div class="restaurant-card">
+  <div class="card-top">
+    <h3>L'Adray Telebar</h3>
+    <div class="badge-row">
+      <span class="badge top-pick">Must-Do</span>
+      <span class="badge value">Great Value</span>
+    </div>
+  </div>
+  <div class="meta-row">
+    <span class="location">Méribel (Piste du Doron, foot of Adret chair)</span>
+    <span class="price-tag">$$</span>
+    <span class="rating"><span class="stars">★★★★½</span> Beloved institution · Foursquare 8.4/10</span>
+  </div>
+  <div class="phone">+33 4 79 08 60 26</div>
+  <div class="card-links"><a href="https://www.adray-telebar.com" target="_blank">Website</a> <span style="color:var(--light-border);">|</span> <a href="https://www.google.com/maps/search/Adray+Telebar+Meribel" target="_blank">Google Maps</a></div>
+  <div class="description">
+    The legendary escalope à la crème that everyone raves about. A family-run chalet hotel on the slopes with a sunny south-facing terrace and valley views. The 3-course daily lunch menu (€35–40) is outstanding value. Second-generation cooks using only fresh, local products. Arrive early or book ahead — ski instructors eat here on their day off, which tells you everything. One of the oldest restaurants in the valley.
+  </div>
+  <div class="review-snippet">
+    "Having eaten at almost every restaurant in Méribel/Mottaret/Courchevel, I rate this as up there with the best." <span class="review-source">— TripAdvisor</span>
+  </div>
+</div>
+
+<!-- Restaurant Lilie -->
+<div class="restaurant-card">
+  <div class="card-top">
+    <h3>Restaurant Lilie</h3>
+    <div class="badge-row">
+      <span class="badge value">Great Value</span>
+    </div>
+  </div>
+  <div class="meta-row">
+    <span class="location">Méribel slopes</span>
+    <span class="price-tag">$$</span>
+  </div>
+  <div class="phone">+33 4 79 00 31 29</div>
+  <div class="card-links"><a href="https://www.meribel.net/en/apidae/restaurant-lilie/" target="_blank">Website</a> <span style="color:var(--light-border);">|</span> <a href="https://www.google.com/maps/search/Restaurant+Lilie+Meribel" target="_blank">Google Maps</a></div>
+  <div class="description">
+    Bistronomic ski-accessible restaurant praised for its friendly team, fresh products, and being one of the best value-for-money spots in the entire 3 Vallées. A strong pick for a satisfying, well-priced slope lunch.
+  </div>
+</div>
+
+<!-- Le Clos Bernard -->
+<div class="restaurant-card">
+  <div class="card-top">
+    <h3>Le Clos Bernard</h3>
+    <div class="badge-row">
+      <span class="badge experience">Unique Experience</span>
+    </div>
+  </div>
+  <div class="meta-row">
+    <span class="location">Méribel Altiport Forest</span>
+    <span class="price-tag">$$–$$$</span>
+    <span class="rating"><span class="stars">★★★★</span> 3.8 TripAdvisor (577 reviews) · 8.4 Foursquare</span>
+  </div>
+  <div class="phone">+33 4 79 00 00 07</div>
+  <div class="card-links"><a href="https://www.closbernard.com/en/" target="_blank">Website</a> <span style="color:var(--light-border);">|</span> <a href="https://www.google.com/maps/search/Le+Clos+Bernard+Meribel" target="_blank">Google Maps</a></div>
+  <div class="description">
+    Nestled in a forest with a magical setting, accessible by ski, on foot, or horse-drawn carriage. Wood-fired grilled meats are the specialty. Beautiful sunny terrace and mini animal farm for kids. Note: mixed recent reviews on service quality — the setting and grilled meats are excellent, but it can be slow when busy. Go on a quieter day for the best experience. Also hosts themed evenings.
+  </div>
+</div>
+
+<!-- Le Plan des Mains -->
+<div class="restaurant-card">
+  <div class="card-top">
+    <h3>Le Plan des Mains</h3>
+  </div>
+  <div class="meta-row">
+    <span class="location">Foot of Mont Vallon (between La Chaudanne &amp; Val Thorens)</span>
+    <span class="price-tag">$$</span>
+  </div>
+  <div class="phone">+33 4 79 07 31 06</div>
+  <div class="card-links"><a href="https://www.meribel.net/en/apidae/restaurant-le-plan-des-mains/" target="_blank">Website</a> <span style="color:var(--light-border);">|</span> <a href="https://www.google.com/maps/search/Le+Plan+des+Mains+Meribel" target="_blank">Google Maps</a></div>
+  <div class="description">
+    South-facing terraces, a children's area, and simple but refined cooking. Perfectly positioned halfway between La Chaudanne and Val Thorens, making it a strategic mid-day stop. A solid, reliable pick rather than a destination in itself.
+  </div>
+</div>
+
+<!-- Les Premières Loges -->
+<div class="restaurant-card">
+  <div class="card-top">
+    <h3>Les Premières Loges</h3>
+    <div class="badge-row">
+      <span class="badge value">Great Value</span>
+    </div>
+  </div>
+  <div class="meta-row">
+    <span class="location">Méribel, foot of the slopes</span>
+    <span class="price-tag">$$</span>
+  </div>
+  <div class="phone">+33 4 79 06 60 89</div>
+  <div class="card-links"><a href="https://www.meribel.net/en/apidae/les-premieres-loges/" target="_blank">Website</a> <span style="color:var(--light-border);">|</span> <a href="https://www.google.com/maps/search/Les+Premieres+Loges+Meribel" target="_blank">Google Maps</a></div>
+  <div class="description">
+    Friendly brasserie right at the base of the slopes. Great value, efficient service, and convenient for coordinating with ski lessons. Not destination dining, but a reliably good, quick lunch stop.
+  </div>
+</div>
+
+<!-- ============================================ -->
+<h2 class="section-header">Courchevel Slope Lunches</h2>
+<p class="section-desc">If you ski over to Courchevel, these are the lunch stops worth planning for.</p>
+
+<div class="restaurant-card">
+  <div class="card-top">
+    <h3>Le Chabichou</h3>
+    <div class="badge-row">
+      <span class="badge michelin">2 Michelin Stars</span>
+    </div>
+  </div>
+  <div class="meta-row">
+    <span class="location">Courchevel</span>
+    <span class="price-tag">$$$$</span>
+  </div>
+  <div class="phone">+33 4 79 08 00 55</div>
+  <div class="card-links"><a href="https://www.lechabichou.com" target="_blank">Website</a> <span style="color:var(--light-border);">|</span> <a href="https://www.google.com/maps/search/Le+Chabichou+Courchevel" target="_blank">Google Maps</a></div>
+  <div class="description">
+    Chef Stéphane Buron's 2-star restaurant delivers inventive, generous and refined cuisine. If you want a Michelin experience on the Courchevel side, this is it. Book well ahead.
+  </div>
+</div>
+
+<div class="restaurant-card">
+  <div class="card-top">
+    <h3>La Soucoupe</h3>
+    <div class="badge-row">
+      <span class="badge top-pick">Top Pick</span>
+    </div>
+  </div>
+  <div class="meta-row">
+    <span class="location">Top of La Loze, Courchevel</span>
+    <span class="price-tag">$$$</span>
+  </div>
+  <div class="phone">+33 4 79 08 21 34</div>
+  <div class="card-links"><a href="https://www.courchevel.com/en/fiche/la-soucoupe-restaurant/" target="_blank">Website</a> <span style="color:var(--light-border);">|</span> <a href="https://www.google.com/maps/search/La+Soucoupe+Courchevel" target="_blank">Google Maps</a></div>
+  <div class="description">
+    Rustic restaurant at the summit with meats grilled by a fireplace. Warm, convivial atmosphere and high-quality cooking. A great Courchevel lunch destination.
+  </div>
+</div>
+
+<div class="restaurant-card">
+  <div class="card-top">
+    <h3>Le Cap Horn</h3>
+    <div class="badge-row">
+      <span class="badge top-pick">Top Pick</span>
+    </div>
+  </div>
+  <div class="meta-row">
+    <span class="location">Courchevel</span>
+    <span class="price-tag">$$$</span>
+  </div>
+  <div class="phone">+33 4 79 08 33 10</div>
+  <div class="card-links"><a href="https://www.caphorn-courchevel.com" target="_blank">Website</a> <span style="color:var(--light-border);">|</span> <a href="https://www.google.com/maps/search/Le+Cap+Horn+Courchevel" target="_blank">Google Maps</a></div>
+  <div class="description">
+    A Courchevel institution with top-tier service and a magnificent terrace overlooking the ski area. Perfect for a festive group lunch with a view. Pricey but delivers.
+  </div>
+</div>
+
+<div class="restaurant-card">
+  <div class="card-top">
+    <h3>La Cave des Creux</h3>
+    <div class="badge-row">
+      <span class="badge experience">Unique Experience</span>
+    </div>
+  </div>
+  <div class="meta-row">
+    <span class="location">Courchevel slopes</span>
+    <span class="price-tag">$$$</span>
+  </div>
+  <div class="phone">+33 4 79 07 76 14</div>
+  <div class="card-links"><a href="https://www.courchevel.com/en/fiche/la-cave-des-creux/" target="_blank">Website</a> <span style="color:var(--light-border);">|</span> <a href="https://www.google.com/maps/search/La+Cave+des+Creux+Courchevel" target="_blank">Google Maps</a></div>
+  <div class="description">
+    Brasserie-style menu in a beautifully renovated old wooden cabin. Simple, gourmet, and refined — the authentic on-slope experience done right.
+  </div>
+</div>
+
+<div class="restaurant-card">
+  <div class="card-top">
+    <h3>Le Chalet de Pierre</h3>
+  </div>
+  <div class="meta-row">
+    <span class="location">Courchevel slopes</span>
+    <span class="price-tag">$$$</span>
+  </div>
+  <div class="phone">+33 4 79 08 18 61</div>
+  <div class="card-links"><a href="https://www.courchevel.com/en/fiche/le-chalet-de-pierre/" target="_blank">Website</a> <span style="color:var(--light-border);">|</span> <a href="https://www.google.com/maps/search/Le+Chalet+de+Pierre+Courchevel" target="_blank">Google Maps</a></div>
+  <div class="description">
+    Large spaces, a varied menu of traditional cuisine, a buffet of sweet flavours, and a fine wine selection. A pleasant, reliable Courchevel address in an agreeable setting. Your friend's recommendation for lunch.
+  </div>
+</div>
+
+<div class="restaurant-card">
+  <div class="card-top">
+    <h3>La Casserole</h3>
+  </div>
+  <div class="meta-row">
+    <span class="location">Courchevel 1650</span>
+    <span class="price-tag">$$$</span>
+  </div>
+  <div class="phone">+33 4 79 08 06 35</div>
+  <div class="card-links"><a href="https://www.courchevel.com/en/fiche/la-casserole/" target="_blank">Website</a> <span style="color:var(--light-border);">|</span> <a href="https://www.google.com/maps/search/La+Casserole+Courchevel+1650" target="_blank">Google Maps</a></div>
+  <div class="description">
+    On the Courchevel 1650 estate, La Casserole serves refined cuisine and carefully crafted dishes aimed at the most discerning palates. A gourmet option slightly away from the main Courchevel 1850 hustle.
+  </div>
+</div>
+
+<div class="restaurant-card">
+  <div class="card-top">
+    <h3>La Bagatelle</h3>
+  </div>
+  <div class="meta-row">
+    <span class="location">Courchevel</span>
+    <span class="price-tag">$$$</span>
+  </div>
+  <div class="phone">+33 4 86 80 07 60</div>
+  <div class="card-links"><a href="https://bagatelle.com/restaurants/courchevel/" target="_blank">Website</a> <span style="color:var(--light-border);">|</span> <a href="https://www.google.com/maps/search/Bagatelle+Courchevel" target="_blank">Google Maps</a></div>
+  <div class="description">
+    Centred on the French art of living, Bagatelle combines refined cuisine and a festive atmosphere with excellent service. A unique blend of fine dining energy and party spirit — great for a group that wants sophistication without stiffness.
+  </div>
+</div>
+
+<!-- ============================================ -->
+<h2 class="section-header">Val Thorens Slope Lunches</h2>
+
+<div class="restaurant-card">
+  <div class="card-top">
+    <h3>Les Explorateurs — Pashmina Palace</h3>
+    <div class="badge-row">
+      <span class="badge michelin">1 Michelin Star</span>
+    </div>
+  </div>
+  <div class="meta-row">
+    <span class="location">Val Thorens</span>
+    <span class="price-tag">$$$$</span>
+  </div>
+  <div class="phone">+33 4 79 00 09 99</div>
+  <div class="card-links"><a href="https://www.hotelpashmina.com/en/restaurants/les-explorateurs/" target="_blank">Website</a> <span style="color:var(--light-border);">|</span> <a href="https://www.google.com/maps/search/Les+Explorateurs+Pashmina+Val+Thorens" target="_blank">Google Maps</a></div>
+  <div class="description">
+    Chef Jeanblanc offers regional terroir cuisine at Europe's highest resort. A Michelin-starred option if you're skiing the Val Thorens side.
+  </div>
+</div>
+
+<div class="restaurant-card">
+  <div class="card-top">
+    <h3>La Marine</h3>
+    <div class="badge-row">
+      <span class="badge top-pick">Top Pick</span>
+    </div>
+  </div>
+  <div class="meta-row">
+    <span class="location">Val Thorens</span>
+    <span class="price-tag">$$$</span>
+  </div>
+  <div class="phone">+33 4 79 00 11 90</div>
+  <div class="card-links"><a href="https://www.chaletdelamarine.com" target="_blank">Website</a> <span style="color:var(--light-border);">|</span> <a href="https://www.google.com/maps/search/Restaurant+La+Marine+Val+Thorens" target="_blank">Google Maps</a></div>
+  <div class="description">
+    Stunning terrace with breathtaking views. Fine, sophisticated cuisine from a renowned chef. The must-do lunch address in Val Thorens.
+  </div>
+</div>
+
+<div class="restaurant-card">
+  <div class="card-top">
+    <h3>Le Diamant Noir — Koh I Nor Palace</h3>
+  </div>
+  <div class="meta-row">
+    <span class="location">Val Thorens</span>
+    <span class="price-tag">$$$</span>
+  </div>
+  <div class="phone">+33 4 79 31 00 00</div>
+  <div class="card-links"><a href="https://www.hotelkohivor.com" target="_blank">Website</a> <span style="color:var(--light-border);">|</span> <a href="https://www.google.com/maps/search/Le+Diamant+Noir+Koh+I+Nor+Val+Thorens" target="_blank">Google Maps</a></div>
+  <div class="description">
+    Creative and refined winter cuisine combining noble seasonal products. Regarded as one of the great addresses of the 3 Valleys. A luxurious option on the Val Thorens side if you want something elevated.
+  </div>
+</div>
+
+<!-- ============================================ -->
+<h2 class="section-header">Saint-Martin & Les Ménuires Slope Lunches</h2>
+<p class="section-desc">The Belleville valley side — authentic villages with real character.</p>
+
+<div class="restaurant-card">
+  <div class="card-top">
+    <h3>L'Etoile des Neiges</h3>
+    <div class="badge-row">
+      <span class="badge top-pick">Top Pick</span>
+    </div>
+  </div>
+  <div class="meta-row">
+    <span class="location">Saint-Martin-de-Belleville village</span>
+    <span class="price-tag">$$</span>
+  </div>
+  <div class="phone">+33 4 79 08 92 80</div>
+  <div class="card-links"><a href="https://st-martin-belleville.com/en/letoile-des-neiges" target="_blank">Website</a> <span style="color:var(--light-border);">|</span> <a href="https://www.google.com/maps/search/L+Etoile+des+Neiges+Saint+Martin+de+Belleville" target="_blank">Google Maps</a></div>
+  <div class="description">
+    Refined, quality cuisine in the heart of the village. Holds the Maître Restaurateur title — a French distinction for restaurants that prepare everything from fresh, quality ingredients on-site. A strong choice if you're exploring the village on foot.
+  </div>
+</div>
+
+<div class="restaurant-card">
+  <div class="card-top">
+    <h3>Le Grenier</h3>
+  </div>
+  <div class="meta-row">
+    <span class="location">Saint-Martin-de-Belleville</span>
+    <span class="price-tag">$$</span>
+  </div>
+  <div class="phone">+33 4 79 00 88 00</div>
+  <div class="card-links"><a href="https://st-martin-belleville.com/en/le-grenier" target="_blank">Website</a> <span style="color:var(--light-border);">|</span> <a href="https://www.google.com/maps/search/Le+Grenier+Saint+Martin+de+Belleville" target="_blank">Google Maps</a></div>
+  <div class="description">
+    A convivial meal in a charming attic-style dining room with exposed timber framework. The rustic decor pairs perfectly with the chef's generous cooking. A warm, authentic Belleville village experience.
+  </div>
+</div>
+
+<div class="restaurant-card">
+  <div class="card-top">
+    <h3>Fitz Roy — FitzRoy Hotel</h3>
+  </div>
+  <div class="meta-row">
+    <span class="location">Val Thorens</span>
+    <span class="price-tag">$$$</span>
+  </div>
+  <div class="phone">+33 4 79 00 04 78</div>
+  <div class="card-links"><a href="https://www.hotelfitzroy.com/en/restaurant/" target="_blank">Website</a> <span style="color:var(--light-border);">|</span> <a href="https://www.google.com/maps/search/Hotel+Fitzroy+Val+Thorens+Restaurant" target="_blank">Google Maps</a></div>
+  <div class="description">
+    Traditional French family cuisine made with seasonal produce sourced from local growers. Inventive, convivial dishes to be enjoyed in good company. A solid hotel restaurant that prioritises local suppliers.
+  </div>
+</div>
+
+<div class="restaurant-card">
+  <div class="card-top">
+    <h3>L'Ours Blanc</h3>
+    <div class="badge-row">
+      <span class="badge value">Great Value</span>
+    </div>
+  </div>
+  <div class="meta-row">
+    <span class="location">Les Ménuires</span>
+    <span class="price-tag">$$</span>
+  </div>
+  <div class="phone">+33 4 79 00 61 66</div>
+  <div class="card-links"><a href="https://www.lesmenuires.com/en/fiche/restaurant-l-ours-blanc/" target="_blank">Website</a> <span style="color:var(--light-border);">|</span> <a href="https://www.google.com/maps/search/L+Ours+Blanc+Les+Menuires" target="_blank">Google Maps</a></div>
+  <div class="description">
+    Simple, efficient, and great value for money. An ideally located break for a day skiing through the 3 Valleys. No frills, just honest food at reasonable prices for the area.
+  </div>
+</div>
+
+<div class="restaurant-card">
+  <div class="card-top">
+    <h3>Le Rendez Vous</h3>
+    <div class="badge-row">
+      <span class="badge value">Great Value</span>
+    </div>
+  </div>
+  <div class="meta-row">
+    <span class="location">Val Thorens / Les Ménuires</span>
+    <span class="price-tag">$$</span>
+  </div>
+  <div class="phone">+33 4 79 00 10 40</div>
+  <div class="card-links"><a href="https://www.lesmenuires.com/en/fiche/le-rendez-vous/" target="_blank">Website</a> <span style="color:var(--light-border);">|</span> <a href="https://www.google.com/maps/search/Le+Rendez+Vous+Les+Menuires" target="_blank">Google Maps</a></div>
+  <div class="description">
+    A generously sunny terrace with European cuisine. Ideal for a simple but effective lunch break — nothing fancy, just good food and sunshine. Budget-friendly by 3 Valleys standards.
+  </div>
+</div>
+
+<!-- ============================================ -->
+<h2 class="section-header">Casual Méribel Dinners</h2>
+<p class="section-desc">Good food, relaxed vibes, wallet-friendly for group nights.</p>
+
+<div class="restaurant-card">
+  <div class="card-top">
+    <h3>Le Bo A Mil</h3>
+  </div>
+  <div class="meta-row">
+    <span class="location">Méribel Village</span>
+    <span class="price-tag">$$</span>
+  </div>
+  <div class="phone">+33 4 79 00 75 48</div>
+  <div class="card-links"><a href="https://www.meribel.net/en/apidae/le-bo-a-mil/" target="_blank">Website</a> <span style="color:var(--light-border);">|</span> <a href="https://www.google.com/maps/search/Le+Bo+A+Mil+Meribel+Village" target="_blank">Google Maps</a></div>
+  <div class="description">
+    Hidden in an old vaulted stone barn in Méribel Village. Charming, off-the-beaten-path, with local cuisine and a romantic atmosphere. Perfect for the group that wants something cosy and authentic away from the main resort buzz.
+  </div>
+</div>
+
+<div class="restaurant-card">
+  <div class="card-top">
+    <h3>Tsaretta Spice</h3>
+  </div>
+  <div class="meta-row">
+    <span class="location">Méribel Centre</span>
+    <span class="price-tag">$$</span>
+  </div>
+  <div class="phone">+33 4 79 08 51 26</div>
+  <div class="card-links"><a href="https://www.meribel.net/en/apidae/tsaretta-spice/" target="_blank">Website</a> <span style="color:var(--light-border);">|</span> <a href="https://www.google.com/maps/search/Tsaretta+Spice+Meribel" target="_blank">Google Maps</a></div>
+  <div class="description">
+    When you need a break from fondue and tartiflette, this Indian restaurant offers a welcome change of pace. Traditional Indian cuisine done well, right in the heart of the resort.
+  </div>
+</div>
+
+<div class="restaurant-card">
+  <div class="card-top">
+    <h3>L'Igloo Pizzeria</h3>
+  </div>
+  <div class="meta-row">
+    <span class="location">Méribel</span>
+    <span class="price-tag">$$</span>
+  </div>
+  <div class="phone">+33 4 79 08 07 84</div>
+  <div class="card-links"><a href="https://www.meribel.net/en/apidae/pizzeria-restaurant-ligloo/" target="_blank">Website</a> <span style="color:var(--light-border);">|</span> <a href="https://www.google.com/maps/search/Pizzeria+L+Igloo+Meribel" target="_blank">Google Maps</a></div>
+  <div class="description">
+    Dine inside a reconstructed igloo for a fun, quirky evening. The novelty factor is high and it's a lighthearted group option. Savoyard food in an Inuit-themed setting.
+  </div>
+</div>
+
+<div class="restaurant-card">
+  <div class="card-top">
+    <h3>Le 80</h3>
+  </div>
+  <div class="meta-row">
+    <span class="location">Méribel</span>
+    <span class="price-tag">$$$</span>
+  </div>
+  <div class="phone">+33 4 79 41 69 79</div>
+  <div class="card-links"><a href="https://www.meribel.net/en/apidae/le-80/" target="_blank">Website</a> <span style="color:var(--light-border);">|</span> <a href="https://www.google.com/maps/search/Le+80+Meribel" target="_blank">Google Maps</a></div>
+  <div class="description">
+    French brasserie combining gourmet food and festivities. The Thursday evening Folie Douce party brings singers and performers for memorable nights. A lively group option.
+  </div>
+</div>
+
+<!-- ============================================ -->
+<h2 class="section-header">Après-Ski & Drinks</h2>
+<p class="section-desc">For when the skiing's done and the evening begins.</p>
+
+<div class="restaurant-card">
+  <div class="card-top">
+    <h3>La Folie Douce Terrace</h3>
+    <div class="badge-row">
+      <span class="badge top-pick">Must-Do</span>
+    </div>
+  </div>
+  <div class="meta-row">
+    <span class="location">Méribel slopes (from 2:30pm)</span>
+    <span class="price-tag">$$$</span>
+  </div>
+  <div class="phone">+33 4 79 00 58 31</div>
+  <div class="card-links"><a href="https://www.lafoliedouce.com/en/meribel-courchevel.html" target="_blank">Website</a> <span style="color:var(--light-border);">|</span> <a href="https://www.google.com/maps/search/La+Folie+Douce+Meribel" target="_blank">Google Maps</a></div>
+  <div class="description">The legendary après-ski destination. Unmistakable energy on the slopes of the world's largest ski area. Go at least once.</div>
+</div>
+
+<div class="restaurant-card">
+  <div class="card-top">
+    <h3>Le Rond Point</h3>
+    <div class="badge-row">
+      <span class="badge value">Great Value</span>
+    </div>
+  </div>
+  <div class="meta-row">
+    <span class="location">Méribel Belvédère</span>
+    <span class="price-tag">$</span>
+  </div>
+  <div class="phone">+33 4 79 00 37 51</div>
+  <div class="card-links"><a href="https://www.meribel.net/en/apidae/le-rond-point-des-pistes/" target="_blank">Website</a> <span style="color:var(--light-border);">|</span> <a href="https://www.google.com/maps/search/Le+Rond+Point+Meribel" target="_blank">Google Maps</a></div>
+  <div class="description">THE après-ski meeting point in Méribel. Live music, guaranteed festive atmosphere, reasonable prices. The place to end a great day on the slopes.</div>
+</div>
+
+<div class="restaurant-card">
+  <div class="card-top">
+    <h3>Le Bar du Savoy</h3>
+  </div>
+  <div class="meta-row">
+    <span class="location">Méribel</span>
+    <span class="price-tag">$$$</span>
+  </div>
+  <div class="phone">+33 4 79 55 55 50</div>
+  <div class="card-links"><a href="https://www.meribel.net/en/apidae/le-savoy-meribel/" target="_blank">Website</a> <span style="color:var(--light-border);">|</span> <a href="https://www.google.com/maps/search/Bar+du+Savoy+Meribel" target="_blank">Google Maps</a></div>
+  <div class="description">Glamorous cocktail menu paired with fine mountain charcuterie. For when the group wants something more refined than standard après-ski.</div>
+</div>
+
+<div class="restaurant-card">
+  <div class="card-top">
+    <h3>L'Abreuvoir</h3>
+  </div>
+  <div class="meta-row">
+    <span class="location">Méribel</span>
+    <span class="price-tag">$$$</span>
+  </div>
+  <div class="phone">+33 4 79 22 81 82</div>
+  <div class="card-links"><a href="https://www.meribel.net/en/apidae/labreuvoir/" target="_blank">Website</a> <span style="color:var(--light-border);">|</span> <a href="https://www.google.com/maps/search/L+Abreuvoir+Meribel" target="_blank">Google Maps</a></div>
+  <div class="description">Rustic-chic cocktail lounge with a nice atmosphere. "Wait until the end — you could be surprised!" says the listing, hinting at some evening entertainment.</div>
+
+<footer>
+  Sources: TripAdvisor, Google Reviews, Yelp, Michelin Guide, TheFork, Foursquare, Restaurant Guru, Trip.com<br>
+  Prices are estimates per person including food and wine, March 2026. Always book ahead for larger groups.
+</footer>
+
+</div>
+</body>
+</html>
