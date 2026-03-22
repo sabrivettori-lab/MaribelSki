@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ski Days — Méribel 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1a1a1a;--cream:#faf8f4;--warm:#c9a96e;--warm-light:#e8d5b0;--slate:#4a5568;--border:#e2ddd5;--snow:#f0ece4;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Source Sans 3',sans-serif;background:var(--cream);color:var(--ink);line-height:1.6;font-weight:300;}
+.hero{background:linear-gradient(135deg,#1a1a2e 0%,#16213e 40%,#0f3460 100%);color:#fff;padding:48px 40px 42px;text-align:center;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L60 30L30 60L0 30Z' fill='none' stroke='rgba(255,255,255,0.03)' stroke-width='1'/%3E%3C/svg%3E");opacity:.5;}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,5vw,2.8rem);font-weight:400;position:relative;margin-bottom:4px;}
+.hero .sub{font-size:.92rem;opacity:.55;position:relative;font-family:'Playfair Display',serif;font-style:italic;margin-top:10px;}
+.nav-bar{display:flex;justify-content:center;gap:8px;margin-top:18px;position:relative;flex-wrap:wrap;}
+.nav-bar a{color:#fff;text-decoration:none;padding:7px 18px;border-radius:20px;font-size:.82rem;font-weight:600;letter-spacing:.05em;border:1px solid rgba(255,255,255,.3);transition:.2s;}
+.nav-bar a:hover{background:rgba(255,255,255,.15);}
+.nav-bar a.active{background:var(--warm);border-color:var(--warm);}
+.container{max-width:920px;margin:0 auto;padding:0 24px;}
+.intro{padding:32px 0 24px;font-size:.92rem;color:var(--slate);border-bottom:1px solid var(--border);margin-bottom:28px;}
+.day-card{background:#fff;border-radius:14px;margin-bottom:28px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid var(--border);}
+.day-header{padding:20px 28px 16px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;}
+.day-header h2{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;}
+.day-header .date{font-size:.82rem;color:var(--slate);font-weight:600;}
+.day-valley{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:5px;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;margin-top:4px;}
+.v-meribel{background:#dbeafe;color:#1e40af;}
+.v-courchevel{background:#fce7f3;color:#9d174d;}
+.v-valthorens{background:#e0e7ff;color:#4338ca;}
+.v-belleville{background:#d1fae5;color:#065f46;}
+.v-grand{background:#fef3c7;color:#92400e;}
+.day-body{padding:22px 28px 24px;}
+.tl{position:relative;padding-left:28px;}
+.tl::before{content:'';position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:var(--border);}
+.tl-item{position:relative;margin-bottom:18px;}
+.tl-item:last-child{margin-bottom:0;}
+.tl-dot{position:absolute;left:-24px;top:5px;width:12px;height:12px;border-radius:50%;border:2px solid var(--warm);background:#fff;}
+.tl-dot.ski{border-color:#1e40af;background:#dbeafe;}
+
+.tl-time{font-size:.76rem;font-weight:700;color:var(--warm);text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px;}
+.tl-title{font-size:.95rem;font-weight:600;color:var(--ink);margin-bottom:3px;}
+.tl-desc{font-size:.86rem;color:var(--slate);line-height:1.6;}
+.lift{background:#e8e4f0;padding:1px 7px;border-radius:4px;font-size:.76rem;font-weight:600;color:#4a3060;}
+.piste-b{background:#1e40af;color:#fff;padding:1px 6px;border-radius:4px;font-size:.72rem;font-weight:600;}
+.piste-r{background:#b91c1c;color:#fff;padding:1px 6px;border-radius:4px;font-size:.72rem;font-weight:600;}
+.piste-g{background:#166534;color:#fff;padding:1px 6px;border-radius:4px;font-size:.72rem;font-weight:600;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.day-tip{font-size:.84rem;color:var(--slate);font-style:italic;border-left:3px solid var(--warm);padding:6px 14px;margin-top:14px;}
+.tip-box{background:linear-gradient(135deg,#fef9ee,#fdf4e3);border:1px solid var(--warm-light);border-radius:10px;padding:18px 22px;margin:24px 0;font-size:.88rem;color:var(--slate);line-height:1.7;}
+.tip-box strong{color:var(--warm);font-family:'Playfair Display',serif;}
+footer{text-align:center;padding:30px 20px;color:#aaa;font-size:.75rem;border-top:1px solid var(--border);margin-top:36px;}
+@media(max-width:600px){.day-body{padding:16px 18px;}.hero{padding:36px 20px 30px;}.day-header{padding:16px 18px 12px;}}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Ski Days</h1>
+  <div class="sub">Where to ski and where to eat on the slopes — 5 days exploring every valley from Méribel</div>
+  <div class="nav-bar">
+    <a href="index.html">Restaurants</a>
+    <a href="chalet.html">Chalet</a>
+    <a href="days.html" class="active">Ski Days</a>
+  </div>
+</div>
+
+<div class="container">
+
+<div class="intro">
+  Five days exploring all 3 valleys from Méribel Centre (La Chaudanne). Each day covers different terrain. For slope lunches and evening restaurants, browse the <a href="index.html" style="color:var(--warm);font-weight:600;">restaurant guide</a> — grouped by area so you can pick based on where you're skiing.
+</div>
+
+<!-- ===================== DAY 1 ===================== -->
+<div class="day-card">
+  <div class="day-header">
+    <div>
+      <h2>Day 1 — Méribel Home Valley</h2>
+      <div class="day-valley v-meribel">Méribel Valley</div>
+    </div>
+    <div class="date">Sunday 22 March</div>
+  </div>
+  <div class="day-body">
+    <div class="tl">
+      <div class="tl-item">
+        <div class="tl-dot ski"></div>
+        <div class="tl-time">9:00 AM — Morning</div>
+        <div class="tl-title">Altiport warm-up</div>
+        <div class="tl-desc">La Chaudanne → <span class="lift">RHODOS</span> gondola → ski <span class="piste-g">Blanchot</span> and <span class="piste-b">Rhodos</span> around the Altiport area (gentle, wide). Then try <span class="piste-b">Lapin</span> — fun hairpin bends through the forest.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot ski"></div>
+        <div class="tl-time">11:00 AM — Late morning</div>
+        <div class="tl-title">Saulire mid-station circuit</div>
+        <div class="tl-desc">Back to La Chaudanne → <span class="lift">SAULIRE EXPRESS 1</span> to mid-station → ski <span class="piste-b">Biche</span> then <span class="piste-b">Marmotte</span> back to La Chaudanne. The classic Méribel blue circuit.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot ski"></div>
+        <div class="tl-time">2:30 PM — Afternoon</div>
+        <div class="tl-title">Toward Mottaret &amp; home</div>
+        <div class="tl-desc"><span class="lift">LEGENDS</span> chairlift → <span class="piste-b">Gélinotte</span> toward Mottaret → <span class="piste-g">Truite</span> through the trees → <span class="piste-b">Doron</span> home to La Chaudanne by 4pm.</div>
+      </div>
+    </div>
+    <div class="day-tip">Learn the <span class="piste-b">Doron</span> run today — it's your highway home from almost anywhere in Méribel.</div>
+  </div>
+</div>
+
+<!-- ===================== DAY 2 ===================== -->
+<div class="day-card">
+  <div class="day-header">
+    <div>
+      <h2>Day 2 — Méribel → Courchevel</h2>
+      <div class="day-valley v-courchevel">Courchevel Valley</div>
+    </div>
+    <div class="date">Monday 23 March</div>
+  </div>
+  <div class="day-body">
+    <div class="tl">
+      <div class="tl-item">
+        <div class="tl-dot ski"></div>
+        <div class="tl-time">9:00 AM — Morning</div>
+        <div class="tl-title">Over the Saulire to Courchevel</div>
+        <div class="tl-desc">La Chaudanne → <span class="lift">SAULIRE EXPRESS 1</span> → <span class="lift">SAULIRE EXPRESS 2</span> to summit (2,740m — photo stop!) → drop into Courchevel via <span class="piste-b">Creux</span>. One of the best blues in the 3 Valleys.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot ski"></div>
+        <div class="tl-time">10:30 AM — Mid-morning</div>
+        <div class="tl-title">Courchevel circuit &amp; Col de la Loze</div>
+        <div class="tl-desc">From Courchevel 1850 → <span class="lift">CHENUS</span> gondola → <span class="piste-b">Gentianes</span> → confident skiers add <span class="piste-r">Marquis</span> → <span class="lift">DOU DES LANCHES</span> → up to Col de la Loze panoramic viewpoint.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot ski"></div>
+        <div class="tl-time">2:30 PM — Afternoon</div>
+        <div class="tl-title">La Tania forest &amp; home</div>
+        <div class="tl-desc">From Col de la Loze → <span class="piste-b">Folyères</span> through enormous spruce trees to La Tania (magical tree run) → <span class="lift">LA TANIA</span> gondola → back over <span class="lift">SAULIRE EXPRESS 2</span> → <span class="piste-b">Biche</span> → <span class="piste-b">Doron</span> home. Be back by 4pm.</div>
+      </div>
+    </div>
+    <div class="day-tip">If it's snowing, skip Saulire summit and head straight to La Tania forest — Folyères is sheltered and beautiful in any weather.</div>
+  </div>
+</div>
+
+<!-- ===================== DAY 3 ===================== -->
+<div class="day-card">
+  <div class="day-header">
+    <div>
+      <h2>Day 3 — Méribel → Val Thorens</h2>
+      <div class="day-valley v-valthorens">Val Thorens · 3,200m</div>
+    </div>
+    <div class="date">Tuesday 24 March</div>
+  </div>
+  <div class="day-body">
+    <div class="tl">
+      <div class="tl-item">
+        <div class="tl-dot ski"></div>
+        <div class="tl-time">9:00 AM — Morning</div>
+        <div class="tl-title">Cross to Val Thorens via Col de la Chambre</div>
+        <div class="tl-desc">La Chaudanne → <span class="lift">LEGENDS</span> to Mottaret → <span class="lift">PLATTIERES</span> gondola → <span class="lift">CÔTE BRUNE</span> (new 10-seat gondola) to Col de la Chambre (2,850m) → ski <span class="piste-b">Pluviomètre</span> into Val Thorens.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot ski"></div>
+        <div class="tl-time">10:30 AM — High altitude</div>
+        <div class="tl-title">Cime de Caron — 3,200m summit</div>
+        <div class="tl-desc"><span class="lift">VT13 FUNITEL PÉCLET</span> → <span class="piste-b">Moraine</span> → <span class="lift">VT33 CIME CARON</span> cable car to 3,200m. Mont Blanc, Écrins, even the Matterhorn on a clear day. Confident skiers: <span class="piste-r">Combe de Caron</span> down. Others: ride the cable car back.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot ski"></div>
+        <div class="tl-time">2:30 PM — Return</div>
+        <div class="tl-title">Back to Méribel</div>
+        <div class="tl-desc"><span class="lift">VT2 PIONNIERS</span> → <span class="lift">VT4 3 VALLÉES</span> back to Col de la Chambre → <span class="piste-b">Lac de la Chambre</span> (long blue to Mottaret) → <span class="piste-b">Doron</span> home. Leave Val Thorens by 3pm latest.</div>
+      </div>
+    </div>
+    <div class="day-tip">Even if you don't ski the black from Cime de Caron, ride the cable car for the 360° view. Absolutely breathtaking.</div>
+  </div>
+</div>
+
+<!-- ===================== DAY 4 ===================== -->
+<div class="day-card">
+  <div class="day-header">
+    <div>
+      <h2>Day 4 — Belleville Valley</h2>
+      <div class="day-valley v-belleville">Saint-Martin · Les Menuires</div>
+    </div>
+    <div class="date">Wednesday 25 March</div>
+  </div>
+  <div class="day-body">
+    <div class="tl">
+      <div class="tl-item">
+        <div class="tl-dot ski"></div>
+        <div class="tl-time">9:00 AM — Morning</div>
+        <div class="tl-title">Over Tougnète to Belleville</div>
+        <div class="tl-desc">La Chaudanne → <span class="lift">LEGENDS</span> → <span class="piste-b">Grive</span> → <span class="lift">TOUGNÈTE 1</span> → <span class="lift">TOUGNÈTE 2</span> to summit (2,437m) → drop into Belleville via <span class="piste-b">Roc de Fer</span> (long, sunny, stunning views) down to Saint-Martin village.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot ski"></div>
+        <div class="tl-time">10:30 AM — Mid-morning</div>
+        <div class="tl-title">Pointe de la Masse — 1,000m vertical blue</div>
+        <div class="tl-desc">From Saint-Martin → <span class="lift">ST MARTIN EXPRESS</span> → ski to Les Menuires → <span class="lift">POINTE DE LA MASSE</span> lifts to 2,804m → ski <span class="piste-b">Bouquetin</span>. 1,000m vertical descent — one of the best blues in the 3 Valleys.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot ski"></div>
+        <div class="tl-time">2:30 PM — Return</div>
+        <div class="tl-title">Secret Raffort forest run home</div>
+        <div class="tl-desc">From Les Menuires → <span class="lift">ROC DE TOUGNE</span> → back via Tougnète ridge → ski <span class="piste-b">Raffort</span> — quiet forest blue, almost nobody on it → Méribel Village → <span class="piste-b">Doron</span> home.</div>
+      </div>
+    </div>
+    <div class="day-tip">Raffort is the hidden gem of Méribel — quiet forest, beautiful light, barely anyone else on it. Don't skip it.</div>
+  </div>
+</div>
+
+<!-- ===================== DAY 5 ===================== -->
+<div class="day-card">
+  <div class="day-header">
+    <div>
+      <h2>Day 5 — Grand Tour (all 3 Valleys)</h2>
+      <div class="day-valley v-grand">All 3 Valleys in one day</div>
+    </div>
+    <div class="date">Thursday 26 March</div>
+  </div>
+  <div class="day-body">
+    <div class="tl">
+      <div class="tl-item">
+        <div class="tl-dot ski"></div>
+        <div class="tl-time">9:00 AM — Courchevel</div>
+        <div class="tl-title">Fast hit over Saulire</div>
+        <div class="tl-desc">First lift → <span class="lift">SAULIRE EXPRESS 1 &amp; 2</span> to summit → <span class="piste-b">Creux</span> into Courchevel (freshly groomed, glorious) → quick lap: <span class="lift">VIZELLE</span> → back to 1850 → <span class="lift">SAULIRE</span> back to Méribel side.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot ski"></div>
+        <div class="tl-time">10:30 AM — Val Thorens</div>
+        <div class="tl-title">Cross to the highest resort</div>
+        <div class="tl-desc">Ski to Mottaret → <span class="lift">PLATTIERES</span> → <span class="lift">CÔTE BRUNE</span> to Col de la Chambre → <span class="piste-b">Pluviomètre</span> into Val Thorens → fast laps: <span class="lift">VT2 PIONNIERS</span> → <span class="piste-b">Cairn</span> → back up <span class="lift">VT4 3 VALLÉES</span>.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot ski"></div>
+        <div class="tl-time">2:30 PM — Belleville &amp; home</div>
+        <div class="tl-title">Touch the third valley</div>
+        <div class="tl-desc">From Col de la Chambre → <span class="piste-b">Lac de la Chambre</span> to Mottaret → <span class="lift">COMBES 2</span> → <span class="lift">TOUGNÈTE 2</span> → quick run via <span class="piste-b">Gros Tougne</span> toward Les Menuires → back via <span class="lift">ROC DE TOUGNE</span> → <span class="piste-b">Alouette</span> → <span class="piste-b">Doron</span> home by 3:30pm.</div>
+      </div>
+    </div>
+    <div class="day-tip">This day is about covering ground, not lapping runs. Keep moving — you'll cross 3 valleys and 600km of connected terrain in one day.</div>
+    <a href="index.html" class="area-link meribel">→ Browse all restaurants</a>
+  </div>
+</div>
+
+<!-- KEY LIFTS -->
+<div class="tip-box">
+  <strong>Key Lifts to Memorise</strong><br><br>
+  <span class="lift">SAULIRE EXPRESS 1 &amp; 2</span> = Méribel ↔ Courchevel<br>
+  <span class="lift">PLATTIERES</span> + <span class="lift">CÔTE BRUNE</span> = Mottaret → Val Thorens (via Col de la Chambre)<br>
+  <span class="lift">VT2 PIONNIERS</span> + <span class="lift">VT4/VT5 3 VALLÉES</span> = Val Thorens → Méribel (back to Col de la Chambre)<br>
+  <span class="lift">TOUGNÈTE 1 &amp; 2</span> = Méribel ↔ Belleville Valley<br>
+  <span class="lift">LEGENDS</span> = La Chaudanne → Mottaret direction<br>
+  <span class="lift">RHODOS</span> = La Chaudanne → Altiport (warm-up/beginners)<br><br>
+  <span class="piste-b">Doron</span> = your highway home to La Chaudanne from almost anywhere in Méribel
+</div>
+
+<!-- BAD WEATHER -->
+<div class="tip-box">
+  <strong>Bad Weather Plan</strong><br><br>
+  Low visibility? Stay in the trees:<br><br>
+  <span class="piste-b">Folyères</span> — La Tania forest, sheltered, beautiful even in a blizzard<br>
+  <span class="piste-b">Lapin</span> &amp; <span class="piste-b">Rhodos</span> — Altiport area, forest runs, lower altitude<br>
+  <span class="piste-b">Raffort</span> — Tougnète (Méribel side), quiet forest<br><br>
+  Avoid anything above treeline: Val Thorens glacier, Cime de Caron, Saulire summit
+</div>
+
+<footer>
+  Ski days itinerary for Méribel, March 2026. Check live piste/lift status each morning at les3vallees.com. Lifts close ~4:30–5pm — be in the right valley by 3:30pm.
+</footer>
+
+</div>
+</body>
+</html>
